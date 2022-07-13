@@ -367,7 +367,7 @@ ScreenGuitwo.Name = "RektskyNotificationGui"
     infoContainer.Position = UDim2.new(0.299047619, 0, 0.874213815, 0)
     infoContainer.Size = UDim2.new(0, 368, 0, 33)
     
-local foldername = "MClient/config"
+local foldername = "RektSky/config"
 local conf = {
 	["file"]=foldername.."/"..game.PlaceId..".json",
 	["functions"]={}
@@ -408,8 +408,8 @@ spawn(function()
         task.wait(5)
     until (not configsaving)
 end)
-if isfolder("MClient/config") == false then
-    makefolder("MClient/config")
+if isfolder("RektSky/config") == false then
+    makefolder("RektSky/config")
 end
 
 function Kavo:TogglekavoUi()
@@ -473,7 +473,7 @@ local function createnotification(title, text, delay2, toggled)
     end)
 end
 
-createnotification("Loaded", "Press Toggle Button to toggle GUI", 3, true)
+createnotification("Loaded", "Press F Toggle to toggle GUI", 3, true)
 
     
     coroutine.wrap(function()
