@@ -5880,3 +5880,32 @@ for theme, color in pairs(colors) do
 		kavoUi:ChangeColor(theme, color3)
 	end)
 end
+
+runcode(function()
+	local wall = nil
+	local spiderspeed = {["Value"] = 0}
+	local Spider = Blatant:NewSection("Spider")
+	Spider:NewToggle("Spider", "Allows you to climb up a wall", function(state)
+		if state then
+			BindToStepped("Spider", 1, function()
+				local raycastparameters = RaycastParams.new()
+				raycastparameters.FilterDescendantsInstances = {lplr.Character}
+				local ray = workspace:Raycast(lplr.Character.Humanoid.LeftLeg.Position, lplr.Character.HumanoidRootPart.CFrame.LookVector * 1.3, raycastparameters)
+
+				wall = ray and ray.Instance or nil
+				if wall then
+					lplr.Character.HumanoidRootPart.Velocity = Vector3.new(lplr.Character.HumanoidRootPart.Velocity.X or 0, spiderspeed["Value"], lplr.Character.HumanoidRootPart.Velocity.Z or 0)
+
+					if lplr.Character.Humanoid:GetState() ~= Enum.HumanoidStateType.Climbing then
+						lplr.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Freefall)
+					end
+				end
+			end)
+		else
+			UnbindFromStepped("Spider")
+		end
+	end)
+	Spider:NewSlider("Speed", "Adjust spider speed", 40, 0, function(val) -- 500 (MaxValue) | 0 (MinValue)
+		spiderspeed["Value"] = val
+	end)
+end)
